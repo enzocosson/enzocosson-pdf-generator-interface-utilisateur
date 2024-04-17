@@ -1,0 +1,34 @@
+name: Code Quality Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  code_quality:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.0'
+
+      - name: Install dependencies
+        run: composer install
+
+      - name: Run PHP_CodeSniffer
+        run: vendor/bin/phpcs --standard=PSR12 src/ tests/
+
+      - name: Run PHPStan
+        run: vendor/bin/phpstan analyse src/ tests/ --level max
+
+      - name: Run PHPMD
+        run: vendor/bin/phpmd src/ text phpmd.xml
