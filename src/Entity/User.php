@@ -5,7 +5,6 @@ namespace App\Entity;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
@@ -32,23 +31,23 @@ class User
     #[ORM\Column(length: 255)]
     private ?string $role = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $createdAt = null;
+    #[ORM\Column]
+    private ?\DateTimeImmutable $created_at = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $updatedAt = null;
+    #[ORM\Column]
+    private ?\DateTimeImmutable $updated_at = null;
 
     /**
      * @var Collection<int, Pdf>
      */
-    #[ORM\OneToMany(targetEntity: Pdf::class, mappedBy: 'userRelation')]
+    #[ORM\OneToMany(targetEntity: Pdf::class, mappedBy: 'owner')]
     private Collection $pdfs;
 
     #[ORM\ManyToOne(inversedBy: 'users')]
     private ?Subscription $subscription = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $subscriptionEndAt = null;
+    #[ORM\Column]
+    private ?\DateTimeImmutable $subscription_end_at = null;
 
     public function __construct()
     {
@@ -120,26 +119,26 @@ class User
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt(): ?\DateTimeImmutable
     {
-        return $this->createdAt;
+        return $this->created_at;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): static
+    public function setCreatedAt(\DateTimeImmutable $created_at): static
     {
-        $this->createdAt = $createdAt;
+        $this->created_at = $created_at;
 
         return $this;
     }
 
-    public function getUpdatedAt(): ?\DateTimeInterface
+    public function getUpdatedAt(): ?\DateTimeImmutable
     {
-        return $this->updatedAt;
+        return $this->updated_at;
     }
 
-    public function setUpdatedAt(\DateTimeInterface $updatedAt): static
+    public function setUpdatedAt(\DateTimeImmutable $updated_at): static
     {
-        $this->updatedAt = $updatedAt;
+        $this->updated_at = $updated_at;
 
         return $this;
     }
@@ -156,7 +155,7 @@ class User
     {
         if (!$this->pdfs->contains($pdf)) {
             $this->pdfs->add($pdf);
-            $pdf->setUserRelation($this);
+            $pdf->setOwner($this);
         }
 
         return $this;
@@ -166,8 +165,8 @@ class User
     {
         if ($this->pdfs->removeElement($pdf)) {
             // set the owning side to null (unless already changed)
-            if ($pdf->getUserRelation() === $this) {
-                $pdf->setUserRelation(null);
+            if ($pdf->getOwner() === $this) {
+                $pdf->setOwner(null);
             }
         }
 
@@ -186,14 +185,14 @@ class User
         return $this;
     }
 
-    public function getSubscriptionEndAt(): ?\DateTimeInterface
+    public function getSubscriptionEndAt(): ?\DateTimeImmutable
     {
-        return $this->subscriptionEndAt;
+        return $this->subscription_end_at;
     }
 
-    public function setSubscriptionEndAt(\DateTimeInterface $subscriptionEndAt): static
+    public function setSubscriptionEndAt(\DateTimeImmutable $subscription_end_at): static
     {
-        $this->subscriptionEndAt = $subscriptionEndAt;
+        $this->subscription_end_at = $subscription_end_at;
 
         return $this;
     }

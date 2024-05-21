@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\PdfRepository;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PdfRepository::class)]
@@ -18,10 +17,10 @@ class Pdf
     private ?string $title = null;
 
     #[ORM\ManyToOne(inversedBy: 'pdfs')]
-    private ?User $userRelation = null;
+    private ?User $owner = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $createdAt = null;
+    #[ORM\Column]
+    private ?\DateTimeImmutable $created_at = null;
 
     public function getId(): ?int
     {
@@ -40,26 +39,26 @@ class Pdf
         return $this;
     }
 
-    public function getUserRelation(): ?User
+    public function getOwner(): ?User
     {
-        return $this->userRelation;
+        return $this->owner;
     }
 
-    public function setUserRelation(?User $userRelation): static
+    public function setOwner(?User $owner): static
     {
-        $this->userRelation = $userRelation;
+        $this->owner = $owner;
 
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt(): ?\DateTimeImmutable
     {
-        return $this->createdAt;
+        return $this->created_at;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): static
+    public function setCreatedAt(\DateTimeImmutable $created_at): static
     {
-        $this->createdAt = $createdAt;
+        $this->created_at = $created_at;
 
         return $this;
     }
