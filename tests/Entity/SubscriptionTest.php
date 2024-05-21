@@ -1,6 +1,5 @@
 <?php
 
-// tests/Entity/SubscriptionTest.php
 namespace App\Tests\Entity;
 
 use App\Entity\Subscription;
@@ -10,15 +9,16 @@ class SubscriptionTest extends TestCase
 {
     public function testGetterAndSetter()
     {
-        // Création d'une instance de l'entité Subscription
+        // Création d'une instance de l'entité User
         $subscription = new Subscription();
 
         // Définition de données de test
-        $title = 'Titre de l\'abonnement';
-        $description = 'Description de l\'abonnement';
+        $title = 'Test';
+        $description = 'Test';
         $pdfLimit = 10;
-        $price = '9.99';
-        $media = 'Media';
+        $price = 10.0;
+        $media = 'Test';
+
 
         // Utilisation des setters
         $subscription->setTitle($title);
@@ -26,6 +26,8 @@ class SubscriptionTest extends TestCase
         $subscription->setPdfLimit($pdfLimit);
         $subscription->setPrice($price);
         $subscription->setMedia($media);
+
+
 
         // Vérification des getters
         $this->assertEquals($title, $subscription->getTitle());
