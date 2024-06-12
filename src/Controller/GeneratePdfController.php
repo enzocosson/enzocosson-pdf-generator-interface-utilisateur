@@ -31,6 +31,7 @@ class GeneratePdfController extends AbstractController
             // get the value of the form
             $pdfName = $form->getData()['pdfName'];
             $url = $form->getData()['url'];
+            
 
             // Créer une instance HttpClient
             $client = HttpClient::create();

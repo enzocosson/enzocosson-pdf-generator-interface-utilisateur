@@ -1,20 +1,59 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}Hello HomeController!{% endblock %}
-
+{% block title %}Convert.io | Accueil
+{% endblock
+%}
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+	<div class="home">
+		<img class="bg" src="{{ asset('images/bg.png') }}" alt="Convert.io" class="home__img"/>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/Users/enzo_cosson/Documents/iut mmi/A3/S6/pdf-generator/interface-utilisateur/src/Controller/HomeController.php</code></li>
-        <li>Your template at <code>/Users/enzo_cosson/Documents/iut mmi/A3/S6/pdf-generator/interface-utilisateur/templates/home/index.html.twig</code></li>
-    </ul>
-</div>
+		<h1>Leader de convertisseur web</h1>
+		<h2>Choisissez votre convertisseur !</h2>
+		<div class="container__selection">
+			<div class="type__selection">
+				<div class="before">Site Web</div>
+				<svg width="25" height="18" viewbox="0 0 25 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path d="M15.625 18L13.4375 15.825L18.9844 10.5H0V7.5H18.9844L13.4375 2.175L15.625 0L25 9L15.625 18Z" fill="#A67DE7"/>
+				</svg>
+
+				<div class="after">PDF</div>
+			</div>
+			<a href="{{path('app_generate_pdf')}}" class="button__selection">
+				Sélectionner
+			</a>
+		</div>
+
+		<div class="proch">
+			<h3>Prochainement...</h3>
+			<div class="container__selection">
+				<div class="type__selection">
+					<div class="before">Site Web</div>
+					<svg width="25" height="18" viewbox="0 0 25 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path d="M15.625 18L13.4375 15.825L18.9844 10.5H0V7.5H18.9844L13.4375 2.175L15.625 0L25 9L15.625 18Z" fill="#A67DE7"/>
+					</svg>
+
+					<div class="after">PDF</div>
+				</div>
+				<a href="" class="button__selection">
+					Sélectionner
+				</a>
+			</div>
+
+			<div class="container__selection">
+				<div class="type__selection">
+					<div class="before">Site Web</div>
+					<svg width="25" height="18" viewbox="0 0 25 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path d="M15.625 18L13.4375 15.825L18.9844 10.5H0V7.5H18.9844L13.4375 2.175L15.625 0L25 9L15.625 18Z" fill="#A67DE7"/>
+					</svg>
+
+					<div class="after">PDF</div>
+				</div>
+				<a href="" class="button__selection">
+					Sélectionner
+				</a>
+			</div>
+
+		</div>
+
+	</div>
 {% endblock %}
