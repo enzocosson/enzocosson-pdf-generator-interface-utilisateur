@@ -18,7 +18,7 @@ class AppFixtures extends Fixture
         $subscription1->setDescription('Abonnement de découverte');
         $subscription1->setPdfLimit(3);
         $subscription1->setPrice(0);
-        $subscription1->setMedia('assets/decouverte_media.png');
+        $subscription1->setMedia('assets/decouverte.png');
 
         $manager->persist($subscription1);
 
@@ -27,7 +27,7 @@ class AppFixtures extends Fixture
         $subscription2->setDescription('Abonnement basique');
         $subscription2->setPdfLimit(10);
         $subscription2->setPrice(5);
-        $subscription2->setMedia('assets/basique_media.png');
+        $subscription2->setMedia('assets/basique.png');
 
         $manager->persist($subscription2);
 
@@ -36,7 +36,7 @@ class AppFixtures extends Fixture
         $subscription3->setDescription('Abonnement premium');
         $subscription3->setPdfLimit(50);
         $subscription3->setPrice(10);
-        $subscription3->setMedia('assets/premium_media.png');
+        $subscription3->setMedia('assets/premium.png');
 
         $manager->persist($subscription3);
 

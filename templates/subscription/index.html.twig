@@ -1,20 +1,52 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello SubscriptionController!{% endblock %}
+{% block title %}Hello SubscriptionController!
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/Users/enzo_cosson/Documents/iut mmi/A3/S6/pdf-generator/interface-utilisateur/src/Controller/SubscriptionController.php</code></li>
-        <li>Your template at <code>/Users/enzo_cosson/Documents/iut mmi/A3/S6/pdf-generator/interface-utilisateur/templates/subscription/index.html.twig</code></li>
-    </ul>
-</div>
+	<div class="subscription">
+		<img class="bg" src="{{ asset('images/bg.png') }}" alt="Convert.io" class="home__img"/>
+		<h1>Abonnements</h1>
+		<small>
+			Il vous reste actuellement
+			<span>
+				{{ app.user.subscription.pdfLimit - app.user.pdfs|length}}
+				/
+				{{ app.user.subscription.pdfLimit }}
+			</span>
+			PDF à convertir.
+		</small>
+		<div class="plans">
+			{% for subscription in subscriptions %}
+				<li>
+					<div class="plan">
+						<h2>{{ subscription.title }}</h2>
+						{% if app.user and app.user.subscription and app.user.subscription.id == subscription.id %}
+							{# <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/><path d="m9 12 2 2 4-4"/></svg> #}
+						{% endif %}
+						<p class="price">
+							{{ subscription.price }}€<span>/mois</span>
+						</p>
+						<ul>
+							<li class="liste">PDF limit:
+								{{ subscription.pdfLimit }}</li>
+							<li class="liste">Duration: 1 an</li>
+						</ul>
+						<form action="{{ path('app_change_subscription', {'id': subscription.id}) }}" method="post">
+							{% if app.user and app.user.subscription and app.user.subscription.id == subscription.id %}
+								<button type="submit" class="actual" disabled>Abonnement actuel</button>
+							{% else %}
+								<button type="submit">Change subscription</button>
+							{% endif %}
+						</form>
+					</div>
+				</li>
+			{% endfor %}
+		</ul>
+		{% for message in app.flashes('success') %}
+			<div class="alert">
+				{{ message }}
+			</div>
+		{% endfor %}
+	</div>
 {% endblock %}
